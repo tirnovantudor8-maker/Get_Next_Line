@@ -6,68 +6,100 @@
 /*   By: tudortirnovan <tudortirnovan@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 15:31:18 by tudortirnov       #+#    #+#             */
-/*   Updated: 2026/02/16 19:47:22 by tudortirnov      ###   ########.fr       */
+/*   Updated: 2026/02/28 15:18:59 by tudortirnov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+char	*ft_strchr_gnl(const char *s, int c)
+{
+	if (!s)
+		return (NULL);
+	while (*s)
+	{
+		if (*s == c)
+			return ((char *)s);
+		s++;
+	}
+	if (c == '\0')
+		return ((char *)s);
+	return (NULL);
+}
+size_t	ft_strlen_gnl(const char *s)
 {
 	size_t	i;
 
-	i = 0;
 	if (!s)
 		return (0);
-	while (s[i])
+	i = 0;
+	while (s[i] != '\0')
 		i++;
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strdup_gnl(const char *s)
 {
-	int	i;
+	char	*dst;
+	size_t	i;
 
-	i = 0;
 	if (!s)
-		return (0);
+		return (NULL);
+	dst = malloc(ft_strlen_gnl(s) + 1);
+	if (!dst)
+		return (NULL);
+	i = 0;
 	while (s[i])
 	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
+		dst[i] = s[i];
 		i++;
 	}
-	if ((char)c == '\0')
-		return ((char *)&s[i]);
-	return (0);
+	dst[i] = '\0';
+	return (dst);
 }
 
-char	*ft_strjoin_gnl(char *s1, char *s2)
+char	*ft_strjoin_gnl(const char *s1, const char *s2)
 {
-	char	*res;
-	size_t	i;
-	size_t	j;
+	char	*d;
+	int		i;
+	int		j;
 
-	if (!s1)
-	{
-		s1 = malloc(1 * sizeof(char));
-		if (!s1)
-			return (NULL);
-		s1[0] = '\0';
-	}
-	res = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!res)
-		return (free(s1), NULL);
 	i = 0;
 	j = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	d = malloc(ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1);
+	if (!d)
+		return (NULL);
 	while (s1[i])
+		d[j++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		d[j++] = s2[i++];
+	d[j] = '\0';
+	return (d);
+}
+
+size_t	ft_strlcpy_gnl(char *dst, const char *src, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (!src)
 	{
-		res[i] = s1[i];
+		if (n > 0 && dst)
+			dst[0] = '\0';
+		return (0);
+	}
+	if (n == 0)
+		return (ft_strlen_gnl(src));
+	while (src[i] && i < n - 1 && src[i] != '\0')
+	{
+		if (dst)
+			dst[i] = src[i];
 		i++;
 	}
-	while (s2[j])
-		res[i++] = s2[j++];
-	res[i] = '\0';
-	free(s1);
-	return (res);
+	if (dst)
+		dst[i] = '\0';
+	return (ft_strlen_gnl(src));
 }
