@@ -1,0 +1,5 @@
+*.code-workspace
+a.out
+.DS_Store
+.vscode
+*.txt
