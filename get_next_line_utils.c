@@ -6,12 +6,15 @@
 /*   By: tudortirnovan <tudortirnovan@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 15:31:18 by tudortirnov       #+#    #+#             */
-/*   Updated: 2026/02/28 15:18:59 by tudortirnov      ###   ########.fr       */
+/*   Updated: 2026/03/03 18:26:05 by tudortirnov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+ "get_next_line.h"
 
+//finding \n
+// if (*s == c) -> finding \n, if it is \n we return char *s/ know where to cut the line
+//if (c == '\0') -> finding \0
 char	*ft_strchr_gnl(const char *s, int c)
 {
 	if (!s)
@@ -26,18 +29,19 @@ char	*ft_strchr_gnl(const char *s, int c)
 		return ((char *)s);
 	return (NULL);
 }
+//tells how much memory to allocate for the strings
 size_t	ft_strlen_gnl(const char *s)
 {
 	size_t	i;
 
-	if (!s)
-		return (0);
 	i = 0;
+	if (!s)
+		return (i);
 	while (s[i] != '\0')
 		i++;
 	return (i);
 }
-
+//creates a copy of the string into a new memory allocated
 char	*ft_strdup_gnl(const char *s)
 {
 	char	*dst;
@@ -57,10 +61,10 @@ char	*ft_strdup_gnl(const char *s)
 	dst[i] = '\0';
 	return (dst);
 }
-
+//glues to strings into one
 char	*ft_strjoin_gnl(const char *s1, const char *s2)
 {
-	char	*d;
+	char	*result;
 	int		i;
 	int		j;
 
@@ -68,24 +72,25 @@ char	*ft_strjoin_gnl(const char *s1, const char *s2)
 	j = 0;
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	d = malloc(ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1);
-	if (!d)
+	result = malloc(ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1);
+	if (!result)
 		return (NULL);
 	while (s1[i])
-		d[j++] = s1[i++];
+		result[j++] = s1[i++];
 	i = 0;
 	while (s2[i])
-		d[j++] = s2[i++];
-	d[j] = '\0';
-	return (d);
+		result[j++] = s2[i++];
+	result[j] = '\0';
+	return (result);
 }
-
+// first check if src doesnot exists(if n>0 and dst exists then we make dst \0)
+//copy the text(or line) from a place to another
 size_t	ft_strlcpy_gnl(char *dst, const char *src, size_t n)
 {
 	size_t	i;
 
 	i = 0;
-	if (!src)
+	if (src == NULL)
 	{
 		if (n > 0 && dst)
 			dst[0] = '\0';
@@ -93,7 +98,7 @@ size_t	ft_strlcpy_gnl(char *dst, const char *src, size_t n)
 	}
 	if (n == 0)
 		return (ft_strlen_gnl(src));
-	while (src[i] && i < n - 1 && src[i] != '\0')
+	while (src[i] != '\0' && i < n - 1)
 	{
 		if (dst)
 			dst[i] = src[i];
