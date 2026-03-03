@@ -6,15 +6,15 @@
 /*   By: tudortirnovan <tudortirnovan@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 15:31:18 by tudortirnov       #+#    #+#             */
-/*   Updated: 2026/03/03 18:26:05 by tudortirnov      ###   ########.fr       */
+/*   Updated: 2026/03/03 21:50:30 by tudortirnov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- "get_next_line.h"
+#include "get_next_line.h"
 
 //finding \n
-// if (*s == c) -> finding \n, if it is \n we return char *s/ know where to cut the line
-//if (c == '\0') -> finding \0
+// if (*s == c) -> finding \n, if it is \n we return char *s/ know where to 
+// cut the line if (c == '\0') -> finding \0
 char	*ft_strchr_gnl(const char *s, int c)
 {
 	if (!s)
@@ -29,6 +29,7 @@ char	*ft_strchr_gnl(const char *s, int c)
 		return ((char *)s);
 	return (NULL);
 }
+
 //tells how much memory to allocate for the strings
 size_t	ft_strlen_gnl(const char *s)
 {
@@ -41,6 +42,7 @@ size_t	ft_strlen_gnl(const char *s)
 		i++;
 	return (i);
 }
+
 //creates a copy of the string into a new memory allocated
 char	*ft_strdup_gnl(const char *s)
 {
@@ -61,6 +63,7 @@ char	*ft_strdup_gnl(const char *s)
 	dst[i] = '\0';
 	return (dst);
 }
+
 //glues to strings into one
 char	*ft_strjoin_gnl(const char *s1, const char *s2)
 {
@@ -83,6 +86,7 @@ char	*ft_strjoin_gnl(const char *s1, const char *s2)
 	result[j] = '\0';
 	return (result);
 }
+
 // first check if src doesnot exists(if n>0 and dst exists then we make dst \0)
 //copy the text(or line) from a place to another
 size_t	ft_strlcpy_gnl(char *dst, const char *src, size_t n)
