@@ -6,7 +6,7 @@
 /*   By: tudortirnovan <tudortirnovan@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 15:20:47 by tudortirnov       #+#    #+#             */
-/*   Updated: 2026/03/03 23:23:53 by tudortirnov      ###   ########.fr       */
+/*   Updated: 2026/03/04 20:41:18 by tudortirnov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 char	*get_next_line(int fd);
 char	*ft_strchr_gnl(const char *s, int c);
-char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_strjoin_gnl(const char *s1, const char *s2);
 size_t	ft_strlen_gnl(const char *s);
 size_t	ft_strlcpy_gnl(char *dst, const char *src, size_t n);
 char	*ft_strdup_gnl(const char *s);
