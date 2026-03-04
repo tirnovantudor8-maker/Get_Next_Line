@@ -6,7 +6,7 @@
 /*   By: tudortirnovan <tudortirnovan@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 16:17:16 by tudortirnov       #+#    #+#             */
-/*   Updated: 2026/03/04 17:59:45 by tudortirnov      ###   ########.fr       */
+/*   Updated: 2026/03/04 18:58:32 by tudortirnov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*read_until_nl(int fd, char *leftover)
 	while (!leftover || !ft_strchr(leftover, '\n'))
 	{
 		bytes_read = read(fd, plate, BUFFER_SIZE);
-		if(bytes_read < 0)
+		if (bytes_read < 0)
 		{
 			free (plate);
 			free (leftover);
@@ -54,7 +54,26 @@ static char	*read_until_nl(int fd, char *leftover)
 	return (leftover);	
 }
 
+static char	*get_result(char *stitched)
+{
+	char	*result;
+	char	*nl_position;
+	size_t	len;
 
+	if (!stitched || !stitched[0])
+		return (NULL);
+	nl_position = ft_strchr_gnl(stitched, '\n');
+	if (nl_position)
+		len = nl_position - stitched + 1;
+	else
+		len = ft_strlen(stitched);
+	result = malloc(len + 1);
+	if (!result)
+		return (NULL);
+	ft_strlcpy(result, stitched, len + 1);
+	return (result);
+	
+}
 
 
 
@@ -67,6 +86,10 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	leftover = read_until_nl(fd, leftover);
+	if (!leftover || !leftover[0])
+		return (free(leftover), leftover = 	NULL);
+	result = get_result(leftover);
+	
 	return (result);
 }
 
