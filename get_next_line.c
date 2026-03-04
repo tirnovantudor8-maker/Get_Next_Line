@@ -6,21 +6,21 @@
 /*   By: tudortirnovan <tudortirnovan@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 16:17:16 by tudortirnov       #+#    #+#             */
-/*   Updated: 2026/03/04 02:02:34 by tudortirnov      ###   ########.fr       */
+/*   Updated: 2026/03/04 17:59:45 by tudortirnov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*stitch_together(char *leftover, char *buffer)
+static char	*stitch_together(char *leftover, char *plate)
 {
 	char	*stitched_str;
 
-	if (!buffer)
+	if (!plate)
 		return (leftover);
 	if (!leftover)
-		return (ft_strdup(buffer));
-	stitched_str = ft_strjoin_gnl(leftover, buffer);
+		return (ft_strdup(plate));
+	stitched_str = ft_strjoin_gnl(leftover, plate);
 	free(leftover);
 	return (stitched_str);
 }
@@ -28,29 +28,29 @@ static char	*stitch_together(char *leftover, char *buffer)
 
 static char	*read_until_nl(int fd, char *leftover)
 {
-	char	*buffer;
+	char	*plate;
 	ssize_t	bytes_read;
 	
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
+	plate = malloc(BUFFER_SIZE + 1);
+	if (!plate)
 		return (free(leftover), NULL);
 	while (!leftover || !ft_strchr(leftover, '\n'))
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		bytes_read = read(fd, plate, BUFFER_SIZE);
 		if(bytes_read < 0)
 		{
-			free (buffer);
+			free (plate);
 			free (leftover);
 			return (NULL);
 		}
 		if (bytes_read == 0)
 			break ;
-		buffer[bytes_read] = '\0';
-		leftover = stitch_together(leftover, buffer);
+		plate[bytes_read] = '\0';
+		leftover = stitch_together(leftover, plate);
 		if (!leftover)
-			return (free(buffer), NULL);
+			return (free(plate), NULL);
 	}
-	free (buffer);
+	free (plate);
 	return (leftover);	
 }
 
