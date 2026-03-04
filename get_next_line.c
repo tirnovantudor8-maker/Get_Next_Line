@@ -6,7 +6,7 @@
 /*   By: tudortirnovan <tudortirnovan@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 16:17:16 by tudortirnov       #+#    #+#             */
-/*   Updated: 2026/03/04 18:58:32 by tudortirnov      ###   ########.fr       */
+/*   Updated: 2026/03/04 19:37:11 by tudortirnov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,30 @@ static char	*get_result(char *stitched)
 	
 }
 
+char	*get_leftover(char *stitched)
+{
+	char	*nl_position;
+	size_t	len;
+	char	*new_leftover;
 
+	if (!stitched)
+		return (NULL);
+	nl_position = ft_strchr(stitched, '\n');
+	if (!nl_position || *(nl_position + 1) == '\0')
+		return (NULL);
+	len = ft_strlen(nl_position + 1);
+	new_leftover = malloc(len + 1);
+	if (!new_leftover)
+		return (NULL);
+	ft_strlcpy(new_leftover, nl_position + 1, len + 1);
+	return (new_leftover);
+}
 
 char	*get_next_line(int fd)
 {
 	static char	*leftover;
 	char		*result;
-	// char		*tmp;
+	char		*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -89,7 +106,11 @@ char	*get_next_line(int fd)
 	if (!leftover || !leftover[0])
 		return (free(leftover), leftover = 	NULL);
 	result = get_result(leftover);
-	
+	if (!result)
+		return (free(leftover), leftover = NULL);
+	tmp = leftover;
+	leftover = get_leftover(leftover);
+	free(tmp);	
 	return (result);
 }
 
